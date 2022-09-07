@@ -1,3 +1,11 @@
+/ansible/users.yml
+---
+  - hosts: "remote-host"
+    gather_facts: no
+    roles:
+      - users
+      
+/ansible/users/tasks/main.yml
 ---
 - name: Add users
    ansible.builtin.user:
