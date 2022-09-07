@@ -1,1 +1,21 @@
-
+/ansible/php.yaml
+---
+- name: install services 
+  yum:
+    name:
+      - php-fpm
+    state: installed
+ 
+- name: start services
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  with_items:
+    - php-fpm
+ 
+- name: apply php-fpm template
+  template:
+    src: www.conf.j2
+    dest: /etc/php-fpm.d/www.conf
+  notify: Restart php-fpm
