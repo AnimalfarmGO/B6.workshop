@@ -1,0 +1,7 @@
+/ansible/http.yml
+---
+  - hosts: "nginx"
+    gather_facts: no
+    roles:
+      - users
+      - http
