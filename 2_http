@@ -1,0 +1,30 @@
+/ansible/http/tasks/
+---
+- name: install services 
+  yum:
+    name:
+      - epel-release
+      - nginx
+      - php
+    state: installed
+ 
+- name: start services
+  service:
+    name: '{{ item }}'
+    state: started
+    enabled: yes
+  with_items:
+    - nginx
+     
+- name: apply nginx template
+  template:
+    src: nginx.conf.j2
+    dest: /etc/nginx/nginx.conf
+  notify: Restart nginx
+  
+  /ansible/http/handlers/
+  ---
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted
